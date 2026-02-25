@@ -5,10 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 //REST란? HTTP GET/POST/PUT/DELETE 활용하여 통신
 //Controller란? view(사용자/클라이언트)와 model 사이의 통신 중계
@@ -33,4 +33,7 @@ public class RestController1{
     // 2-4 DELETE
     @DeleteMapping
     public void 삭제하기(){System.out.println("RestController1.삭제하기");}
+
 }
+
+
