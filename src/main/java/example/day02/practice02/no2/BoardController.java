@@ -31,6 +31,20 @@ public class BoardController {
         return boardDto;
     }
 
+    @DeleteMapping
+    public boolean boardDelete(int bno){
+        System.out.println("BoardController.boardDelete");
+        System.out.println("bno = " + bno);
+        return true;
+    }
+
+    @PutMapping
+    public boolean boardUpdate(BoardDto boardDto){
+        System.out.println("BoardController.boardUpdate");
+        System.out.println("boardDto = " + boardDto);
+        return true;
+    }
+
 
 
 }
