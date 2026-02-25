@@ -101,6 +101,7 @@ public class BoardDao {
                 BoardDto boardDto = new BoardDto(bno, bcontent, bwriter, bdate);
                 //리스트 저장
                 boards.add(boardDto);
+                //asdasd
             }
 
 
