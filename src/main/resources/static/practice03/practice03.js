@@ -1,6 +1,6 @@
 const func1 = async() => {
     try{
-        const obj = {"studentName" : "홍길동" , "date" : "2026-02-26" , "status" : "출석"}
+        const obj = {"ano" : 1 , "studentName" : "홍길동" , "date" : "2026-02-26" , "status" : "출석"}
         const response1=
         await axios.post("/day03/attendance" , obj)
         console.log(response1.data);

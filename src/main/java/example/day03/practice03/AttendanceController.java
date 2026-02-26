@@ -12,7 +12,9 @@ import java.util.Map;
 public class AttendanceController {
 
     @PostMapping
-    public boolean post(@RequestBody Map<String , Object> map){
+    public boolean post(@RequestBody AttendanceDto attendanceDto){
+        System.out.println("AttendanceController.post");
+        System.out.println("attendanceDto = " + attendanceDto);
         return true;
     }
 
@@ -35,6 +37,8 @@ public class AttendanceController {
 
     @PutMapping
     public boolean put(@RequestBody Map<String , Object> map){
+        System.out.println("AttendanceController.put");
+        System.out.println("map = " + map);
         return true;
     }
 }
