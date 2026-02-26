@@ -19,11 +19,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc' //1. SpringBoot Web 설치
+    runtimeOnly 'com.mysql:mysql-connector-j' //2. mySQL
+    compileOnly 'org.projectlombok:lombok' //3 lombok
+    annotationProcessor 'org.projectlombok:lombok' //3 lombok
+ }
 
 tasks.named('test') {
     useJUnitPlatform()
