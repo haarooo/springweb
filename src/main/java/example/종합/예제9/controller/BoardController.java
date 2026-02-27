@@ -40,7 +40,5 @@ public class BoardController {
         boolean result = boardDao.delete(bno);
         return result;
     }
-
-
-
+    //커밋
 }
