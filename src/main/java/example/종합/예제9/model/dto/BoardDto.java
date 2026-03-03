@@ -6,7 +6,9 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 public class BoardDto {
     private Integer bno; //int->Integer 사용하요 null 값 대응
     private String bcontent;
