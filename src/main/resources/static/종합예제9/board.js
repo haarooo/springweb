@@ -6,11 +6,11 @@ const onFindAll = async() => {
         const response = await axios.get("/board")
         console.log(response.data)
         const data = response.data
-        for(let index = 0 ; index <= data.length-1 ; index++){
+        for(let index = 0 ; index<=data.length-1 ; index++){
             const board = data[index]; console.log(board)
             html+= `<tr>
                         <td>${board.bno}</td>
-                        <td>${board.bcontent}</td>
+                        <td>${board.btitle}</td>
                         <td>${board.bwriter}</td>
                         <td>${board.bdate}</td>
                         <td><button onclick="ondelete(${board.bno})">삭제</button></td>

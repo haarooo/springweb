@@ -56,7 +56,7 @@ public class MovieService {
             movieRepository.deleteById(mno);
             return true;
         }
-        else{return false;}
+        return false;
     }
 
     @Transactional
