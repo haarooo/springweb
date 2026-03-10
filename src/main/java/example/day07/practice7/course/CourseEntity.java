@@ -15,7 +15,7 @@ import java.util.List;
 public class CourseEntity extends BaseTime {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cno;
 
     @Column(name = "courseName")

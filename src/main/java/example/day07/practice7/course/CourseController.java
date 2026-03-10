@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 
     @Autowired
-    private CourseService academyService;
+    private CourseService courseService;
 
     @PostMapping("/course")
     public boolean coursePost(@RequestBody CourseDto courseDto){
 
-        boolean result = academyService.coursePost(courseDto);
+        boolean result = courseService.coursePost(courseDto);
         return result;
     }
 }

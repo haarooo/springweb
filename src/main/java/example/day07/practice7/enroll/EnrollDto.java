@@ -23,8 +23,6 @@ public class EnrollDto {
         return EnrollEntity.builder()
                 .eno(eno)
                 .status(status)
-                .courseEntity(courseDto.toEntity())
-                .studentEntity(studentDto.toEntity())
                 .build();
 
     }

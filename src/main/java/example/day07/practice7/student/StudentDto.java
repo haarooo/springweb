@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class StudentDto {
     private Integer sno;
     private String studentName;
-    private EnrollDto enrollDto;
     private String createDate;
     private String updateDate;
 
