@@ -15,5 +15,5 @@ import App from './App.jsx'
 //createRoot(document.querySelector('#root')).render(<Exam2 />) 
 
 // chapter 6 예제
-import Exam1 from './chapter7/Exam1.jsx'
-createRoot(document.querySelector('#root')).render(<Exam1 />)
+import Exam2 from './chapter9/Exam2.jsx'
+createRoot(document.querySelector('#root')).render(<Exam2 />)
