@@ -43,7 +43,7 @@ public class Exam04 {
                     //.map((x)->{return new Post(x);})
                     .map(Post::new)
                     .collect(Collectors.toList());
-            //aaa
+
     }//main e
 }//class e
 
