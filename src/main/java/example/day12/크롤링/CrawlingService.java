@@ -1,12 +1,24 @@
 package example.day12.크롤링;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.aspectj.apache.bcel.ExceptionConstants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.AbstractNestablePropertyAccessor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.*;
 
 @Service
@@ -78,4 +90,88 @@ public class CrawlingService {
 
         return list;
     }
+
+
+    // 동적 페이지 크롤링 예제 1
+    public Map<String , Object> test3(){
+
+        // 1. 크롬 드라이버 설치
+        WebDriverManager.chromedriver().setup();
+        // 2. 크롤링 할 웹 주소
+        String url = "https://weather.daum.net/?location-regionId=AB33110208&weather-cp=kweather";
+        // 3. 크롬 드라이버 객체 생성
+            // 드라이버 옵션
+        ChromeOptions options = new ChromeOptions();
+            // 크론 백그라운드 실행
+        options.addArguments("--headless=new" , "--disable-gpu");
+
+        WebDriver webDriver = new ChromeDriver(options);
+        // 4. 크롬 드라이버에 크롤링할 주소 넣기
+        webDriver.get(url);
+        // 5. 해당 페이지는 동적 new WebDriverWait(현재크롭객체, Duration.ofxxx(대기단위));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(1));
+        // 6. 크롤링할 선택자
+        WebElement temp = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".info_weather .num_deg")) );
+        WebElement temp2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".tooltip_icon .ico_airstat1")));
+        System.out.println(temp.getText());
+        //7. 정보 map으로 구성
+        Map<String , Object> map = new HashMap<>();
+        map.put("온도" , temp.getText());
+        map.put("초미세먼지" , temp2.getText());
+        //8. 안전하게 드라이버 종료
+        webDriver.quit();
+
+        return map;
+    }
+
+    // 동적 크롤링 예제2
+    public List<String> test4(){
+
+        // 1 크롬 드라이버 설치
+        WebDriverManager.chromedriver().setup();
+        String url = "https://cgv.co.kr/cnm/cgvChart/movieChart/30000994";
+
+        ChromeOptions options = new ChromeOptions();
+        //options.addArguments("--headless=new" , "--disable-gpu");
+
+        WebDriver webDriver = new ChromeDriver(options); // 크롬객체
+
+        webDriver.get(url);
+        // 자바에서 js 제어하여 스크롤 내리는 방법
+        JavascriptExecutor js = (JavascriptExecutor)webDriver; //해당하는 크롬객체에서 js객체 꺼내기
+        js.executeScript("window.scrollTo(100 , document.body.scrollHeight)"); //js 문법 사용 가능
+            //document.body.scrollHeight : 현재 화면에서 스크롤 전체 길이 = 높이 = 300px , 상단이 = 0 , 하단 = 300
+            // .scrollTo(이동할위치 , 전체길이)
+
+        try{Thread.sleep(1000);
+        }catch (Exception e){System.out.println(e);}
+        List<String> list = new ArrayList<>();
+        for(int page = 1; page <= 10 ; page++){
+            int startCount = list.size(); // 현재리뷰 개수
+            List<WebElement> elements = webDriver.findElements(By.cssSelector(".reveiwCard_txt__RrTgu"));
+            System.out.println(elements);
+
+            for(WebElement element : elements){
+                String review = element.getText();
+                if(list.contains(review)){continue;}
+                else{list.add(review);}
+            }
+            int endCount = list.size(); // 특정 반복문이 1회 종료 되었을때
+            if(startCount == endCount){break;} //리뷰 개수가 시작과 끝 개수가 같다면 크롤링 중지
+
+            //스크롤 다시 내리기
+            js.executeScript("window.scrollTo(100,document.body.scrollHeight);");
+            try{Thread.sleep(1000);
+            }catch (Exception e){System.out.println(e);}
+        }
+
+        return list;
+    }
+
+
+
+
+
+
+
 }
