@@ -3,18 +3,17 @@ package springweb.board.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springweb.board.dto.BoardDto;
 import springweb.board.service.BoardService;
+import springweb.member.service.JWTService.JwtService;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/board")
 public class BoardController {
     private final BoardService boardService;
+    private final JwtService jwtService;
 
     // 회원제 글 등록
     @PostMapping("/write")
@@ -30,5 +29,17 @@ public class BoardController {
         return ResponseEntity.ok(result);
 
     }
+
+    @PostMapping("/write2")
+    public ResponseEntity<?> write2(@RequestBody BoardDto boardDto , @RequestHeader("Authorization")String token){
+        if(token == null || !token.startsWith("Bearer")){
+            return ResponseEntity.ok(false);
+        }
+        token = token.replace("Bearer " , "");
+        String mid = jwtService.getClaim(token);
+        if(mid==null){return  ResponseEntity.ok(false);}
+        return ResponseEntity.ok(boardService.write(boardDto , mid));
+    }
+
 
 }
