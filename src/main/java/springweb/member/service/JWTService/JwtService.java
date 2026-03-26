@@ -18,7 +18,7 @@ public class JwtService {
     private String secret = "123456789123456789123456789123456789"; // 개발자가 임의로 32글자 이상의 문자열 구성
     private Key secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     // 토큰 발급
-    public String createToken(String mid){
+        public String createToken(String mid){
         String token = Jwts.builder()
                 .claim("mid" , mid) // key 와 value로 토큰에 저장할 값
                 .setIssuedAt(new Date())

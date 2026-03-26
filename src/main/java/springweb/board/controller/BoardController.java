@@ -2,6 +2,7 @@ package springweb.board.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springweb.board.dto.BoardDto;
@@ -32,6 +33,19 @@ public class BoardController {
 
     @PostMapping("/write2")
     public ResponseEntity<?> write2(@RequestBody BoardDto boardDto , @RequestHeader("Authorization")String token){
+        if(token == null || !token.startsWith("Bearer")){
+            return ResponseEntity.ok(false);
+        }
+        token = token.replace("Bearer " , "");
+        String mid = jwtService.getClaim(token);
+        if(mid==null){return  ResponseEntity.ok(false);}
+        return ResponseEntity.ok(boardService.write(boardDto , mid));
+    }
+
+    // 회원제 글등록 + 토큰 + 파일첨부
+    @PostMapping("/wirte3")
+    public ResponseEntity<?> write3(BoardDto boardDto , @RequestHeader("Authorization")String token){
+
         if(token == null || !token.startsWith("Bearer")){
             return ResponseEntity.ok(false);
         }

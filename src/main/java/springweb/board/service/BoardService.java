@@ -8,6 +8,7 @@ import springweb.board.entity.BoardEntity;
 import springweb.board.repositroy.BoardRepository;
 import springweb.member.entity.MemberEntity;
 import springweb.member.repositroy.MemberRepository;
+import springweb.util.FileService;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
+    private final FileService fileService;
 
     public boolean write(BoardDto boardDto , String loginMid){
         // 1. dto --> entity변환
@@ -30,11 +32,28 @@ public class BoardService {
         }
         // 저장할 게시물 엔티티에 set참조 엔티티(회원 엔티티)
         boardEntity.setMemberEntity(optional.get());
+
+        // 최종 DB에 save하기 전에 첨부파일 존재하면 업로드
+        String fileName = fileService.upload(boardDto.getMultipartFile());
+        if(fileName != null){boardEntity.setBfile(fileName);}
+
+
         BoardEntity saved = boardRepository.save(boardEntity);
         if(saved.getBno()>=0){return true;}
         else{return false;}
 
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
