@@ -15,5 +15,10 @@ import App from './App.jsx'
 //createRoot(document.querySelector('#root')).render(<Exam2 />) 
 
 // chapter 6 예제
-import Exam2 from './chapter9/Exam2.jsx'
-createRoot(document.querySelector('#root')).render(<Exam2 />)
+import Exam1 from './chapter11/Exam1.jsx'
+import {BrowserRouter}from "react-router-dom"
+createRoot(document.querySelector('#root')).render(
+    <BrowserRouter>
+        <Exam1 />
+    </BrowserRouter>
+);
