@@ -1,5 +1,7 @@
 package springweb.board.controller;
 
+import example.AOP.JwtRequired;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -31,14 +33,10 @@ public class BoardController {
 
     }
 
+    @JwtRequired
     @PostMapping("/write2")
-    public ResponseEntity<?> write2(@RequestBody BoardDto boardDto , @RequestHeader("Authorization")String token){
-        if(token == null || !token.startsWith("Bearer")){
-            return ResponseEntity.ok(false);
-        }
-        token = token.replace("Bearer " , "");
-        String mid = jwtService.getClaim(token);
-        if(mid==null){return  ResponseEntity.ok(false);}
+    public ResponseEntity<?> write2(@RequestBody BoardDto boardDto , HttpServletRequest request){
+        String mid = (String) request.getAttribute("mid");
         return ResponseEntity.ok(boardService.write(boardDto , mid));
     }
 
