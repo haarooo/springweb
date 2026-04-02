@@ -2,11 +2,15 @@ package example.AOP;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import springweb.member.service.JWTService.JwtService;
 
+
+@Aspect
 public class JwtAspect {
 
     private final JwtService jwtService;
@@ -15,7 +19,7 @@ public class JwtAspect {
         this.jwtService = jwtService;
     }
 
-    @Before("@annotation(example.JwtRequired)")
+    @Before("@annotation(example.AOP.JwtRequired)")
     public void checkJwt(JoinPoint joinPoint) {
 
         HttpServletRequest request = ((ServletRequestAttributes)

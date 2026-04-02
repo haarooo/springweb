@@ -15,10 +15,19 @@ import { createRoot } from 'react-dom/client'
 //createRoot(document.querySelector('#root')).render(<Exam2 />) 
 
 // chapter 6 예제
-import App from './chapter12/App.jsx'
-import {BrowserRouter}from "react-router-dom"
+//import App from './chapter12/App.jsx'
+//import {BrowserRouter}from "react-router-dom"
+//(document.querySelector('#root')).render(
+//    <BrowserRouter>
+//        <App />
+//    </BrowserRouter>
+//);
+
+
+import App from './parctice/App.jsx'
+import {BrowserRouter} from "react-router-dom"
 createRoot(document.querySelector('#root')).render(
     <BrowserRouter>
         <App />
     </BrowserRouter>
-);
+)
