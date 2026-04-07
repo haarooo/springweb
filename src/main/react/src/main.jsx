@@ -23,8 +23,17 @@ import { createRoot } from 'react-dom/client'
 //    </BrowserRouter>
 //);
 
-
+/*
 import App from './parctice/App.jsx'
+import {BrowserRouter} from "react-router-dom"
+createRoot(document.querySelector('#root')).render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+)
+ */
+
+import App from './reactweb/App.jsx'
 import {BrowserRouter} from "react-router-dom"
 createRoot(document.querySelector('#root')).render(
     <BrowserRouter>

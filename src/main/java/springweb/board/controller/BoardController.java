@@ -14,6 +14,7 @@ import springweb.member.service.JWTService.JwtService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/board")
+@CrossOrigin(value = "http://localhost:5173" , exposedHeaders = "Authorization")
 public class BoardController {
     private final BoardService boardService;
     private final JwtService jwtService;
@@ -40,8 +41,9 @@ public class BoardController {
         return ResponseEntity.ok(boardService.write(boardDto , mid));
     }
 
+
     // 회원제 글등록 + 토큰 + 파일첨부
-    @PostMapping("/wirte3")
+    @PostMapping("/write3")
     public ResponseEntity<?> write3(BoardDto boardDto , @RequestHeader("Authorization")String token){
 
         if(token == null || !token.startsWith("Bearer")){

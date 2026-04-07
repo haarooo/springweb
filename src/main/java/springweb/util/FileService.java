@@ -22,7 +22,7 @@ public class FileService {
     public String upload(MultipartFile multipartFile){
 
         // 만약에 파일이 존재하지 않으면
-        if(multipartFile.isEmpty()==true){return null;}
+        if(multipartFile == null || multipartFile.isEmpty()==true){return null;}
         // 업로드할 파일의 경로 / 서버경로 , 개발자(src) --> 배포/실행 --> 서버(build파일) <-- 사용자
         File upload = new File(uploadDir);
         // 만약에 해당 경로의 폴더가 존재하지 않으며 폴더 생성
