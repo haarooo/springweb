@@ -5,6 +5,8 @@ import {useState} from "react";
 import axios from "axios";
 import Write from "./pages/board/Write.jsx";
 import Signup from "./pages/member/Signup.jsx";
+import Board from "./pages/board/Board.jsx";
+import {View} from "./pages/board/View.jsx";
 
 export default function App(props){
 
@@ -19,6 +21,8 @@ export default function App(props){
                 <Route path="/member/login" element={<Login/>}/>
                 <Route path="/board/write" element={<Write/>}/>
                 <Route path="/member/signup" element={<Signup/>}/>
+                <Route path="/board/board" element={<Board/>}/>
+                <Route path="/board/view" element={<View/>}/>
             </Routes>
             {/* 푸터 */}
         </div>

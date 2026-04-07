@@ -2,6 +2,7 @@ package springweb.board.controller;
 
 import example.AOP.JwtRequired;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -14,7 +15,7 @@ import springweb.member.service.JWTService.JwtService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/board")
-@CrossOrigin(value = "http://localhost:5173" , exposedHeaders = "Authorization")
+@CrossOrigin(value = "http://localhost:5173" , exposedHeaders = "Authorization" ,allowCredentials = "true")
 public class BoardController {
     private final BoardService boardService;
     private final JwtService jwtService;
@@ -53,6 +54,26 @@ public class BoardController {
         String mid = jwtService.getClaim(token);
         if(mid==null){return  ResponseEntity.ok(false);}
         return ResponseEntity.ok(boardService.write(boardDto , mid));
+    }
+
+    // 회원제 글등록 + 토큰 + 파일첨부 + 쿠키
+    @PostMapping("/write4")
+    public ResponseEntity<?> write4(BoardDto boardDto , @CookieValue(value = "token" ,required = false) String token){
+        if(token == null){return ResponseEntity.ok(false);}
+        String mid = jwtService.getClaim(token);
+        if(mid==null){return  ResponseEntity.ok(false);}
+        return ResponseEntity.ok(boardService.write(boardDto , mid));
+    }
+
+    // 전체조회
+    @GetMapping("/findall")
+    public ResponseEntity<?> findAll(){
+        return ResponseEntity.ok(boardService.findAll());
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> detail(@RequestParam Long bno){
+        return ResponseEntity.ok(boardService.detail(bno));
     }
 
 

@@ -2,6 +2,7 @@ package springweb.board.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import springweb.board.dto.BoardDto;
 import springweb.board.entity.BoardEntity;
@@ -11,7 +12,9 @@ import springweb.member.repositroy.MemberRepository;
 import springweb.util.FileService;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +45,21 @@ public class BoardService {
         if(saved.getBno()>=0){return true;}
         else{return false;}
 
+    }
+
+
+    public List<BoardDto> findAll(){
+        return boardRepository.findAll(Sort.by(Sort.Direction.DESC , "bno"))
+                .stream()
+                //filter() , 조건 가능(짝수만 출력)
+                .map(BoardEntity::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public BoardDto detail(Long bno){
+        return boardRepository.findById(bno)
+                .orElse(null) // 엔티티가 없으면
+                .toDto();
     }
 
 

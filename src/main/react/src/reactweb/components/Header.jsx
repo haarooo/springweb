@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {act, useEffect, useState} from "react";
 import axios from "axios";
 
 export default function Header(props){
@@ -12,16 +12,12 @@ export default function Header(props){
     // 로그인 상태에 따라 메뉴 분기
     const getMyInfo = async ()=>{
         // 로그인시 localStorage에 저장한 토큰 가져오기 , .setItem , getItem
-        const token = localStorage.getItem('token');
-        // 만약에 토큰이 없으면 함수 종료
-        if(!token){ setLogin(false); return;}
         // 헤더에 표시할 로그인된 유저 아이디 가져오기
-        const response = await axios.get("http://localhost:8080/api/member2/myinfo",
-            {headers:{Authorization : `Bearer ${token}`}}
+        const response = await axios.get("http://localhost:8080/api/member3/myinfo", {withCredentials : true} // 헤더에 토큰 전송이 아닌 쿠키 전송으로 변경
         );
         //통신 결과
         const data = response.data;
-        if(data == null|| data != false){
+        if(data|| data != false){
             setLogin(true);
             setUser(data); // 응답 받은 자료(회원정보) 저장
         }else{
@@ -39,10 +35,12 @@ export default function Header(props){
 
     // 로그아웃
     const logout = async ()=>{
-        localStorage.removeItem('token')
+        // 1.
+        const response = await axios.get("http://localhost:8080/api/member3/logout" , {withCredentials : true});
         setLogin(false);
         alert('로그아웃');
         location.href="/"
+
     }
 
 
@@ -53,9 +51,11 @@ export default function Header(props){
     return(<>
         <div>
             <Link to="/">홈</Link> |
+            <Link to="/board/board">게시물</Link> |
             { login == false && (<>
                 <Link to="/member/login">로그인</Link> |
                 <Link to="/member/signup">회원가입</Link> |
+
             </>)}
 
             { login == true && (<>
