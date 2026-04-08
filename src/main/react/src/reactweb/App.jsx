@@ -7,6 +7,7 @@ import Write from "./pages/board/Write.jsx";
 import Signup from "./pages/member/Signup.jsx";
 import Board from "./pages/board/Board.jsx";
 import {View} from "./pages/board/View.jsx";
+import Chat from "./pages/chat/Chat.jsx";
 
 export default function App(props){
 
@@ -23,6 +24,7 @@ export default function App(props){
                 <Route path="/member/signup" element={<Signup/>}/>
                 <Route path="/board/board" element={<Board/>}/>
                 <Route path="/board/view" element={<View/>}/>
+                <Route path="/chat" element={<Chat/>}/>
             </Routes>
             {/* 푸터 */}
         </div>
