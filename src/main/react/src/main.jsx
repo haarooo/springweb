@@ -32,8 +32,17 @@ createRoot(document.querySelector('#root')).render(
     </BrowserRouter>
 )
  */
-
+/*
 import App from './reactweb/App.jsx'
+import {BrowserRouter} from "react-router-dom"
+createRoot(document.querySelector('#root')).render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+)
+*/
+
+import App from './test/App.jsx'
 import {BrowserRouter} from "react-router-dom"
 createRoot(document.querySelector('#root')).render(
     <BrowserRouter>
