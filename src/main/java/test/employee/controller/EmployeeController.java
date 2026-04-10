@@ -31,7 +31,7 @@ public class EmployeeController {
 
     //사원 수정
     @PutMapping
-    public ResponseEntity<?> employeeUpdate(EmployeeDto employeeDto){
+    public ResponseEntity<?> employeeUpdate(@RequestBody EmployeeDto employeeDto){
         EmployeeDto result = employeeService.employeeUpdate(employeeDto);
         if(result == null){
             return ResponseEntity.status(500).body("수정실패");

@@ -41,6 +41,7 @@ public class EmployeeEntity extends BaseTime {
                 .position(position)
                 .employeeImg(employeeImg)
                 .departmentId(department.getDepartmentId())
+                .departmentName(department.getDepartmentName())
                 .createDate(getCreateDate().toString())
                 .updateDate(getUpdateDate().toString())
                 .build();

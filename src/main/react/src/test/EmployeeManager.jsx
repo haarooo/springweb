@@ -1,5 +1,6 @@
 ﻿import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {preinitModule} from "react-dom";
 
 export default function EmployeeManager() {
 
@@ -17,6 +18,7 @@ export default function EmployeeManager() {
     departmentGet();
   },[])
 
+  // 사원 등록
   const employee = async (e) => {
     e.preventDefault();
     let name = e.target.name.value;
@@ -24,16 +26,51 @@ export default function EmployeeManager() {
     let department = e.target.department.value;
     let uploadFile = e.target.uploadFile.files[0]
     const formData = new FormData();
-    formData.append("name" , name)
+    formData.append("employeeName" , name)
     formData.append("position" , position)
-    formData.append("department" , department)
-    if(formData){formData.append("uploadFile" , uploadFile)};
+    formData.append("departmentId" , department)
+    if(uploadFile){ formData.append("multipartFile", uploadFile) }
 
     const response = await axios.post("http://localhost:8080/api/employee", formData)
     const data = response.data
     if(data!=null){alert("사원 등록 성공"); location.href="/"}
     else{"사원 등록 실패"}
 
+  }
+
+
+  const[employeeList , setEmployeeList] = useState([])
+
+  // 사원 조회
+  const findAll = async () =>{
+    try{
+      const response = await axios.get("http://localhost:8080/api/employee")
+      const data = response.data;
+      setEmployeeList(data)
+    }catch (e){console.log(e)}
+  }
+  useEffect(() => {
+    findAll();
+  }, []);
+
+
+  // 사원 수정
+  const update = async (id) =>{
+    let employeeName = prompt("수정할 사원명 : ");
+    let position = prompt("수정할 직급명 : ");
+    const obj = {"employeeId" :id , "employeeName" : employeeName , "position" :position};
+    const response = await axios.put("http://localhost:8080/api/employee" , obj)
+    const data = response.data
+    if(data != null){alert("수정 성공"); location.href="/"}
+    else{alert("수정 실패");}
+  }
+
+  // 사원 삭제
+  const employDelete = async (id)=>{
+    const response = await axios.delete("http://localhost:8080/api/employee?employeeId="+id);
+    const data = response.data
+    if(data == true){alert("삭제 성공"); location.href="/"}
+    else{alert("삭제 실패");}
   }
 
 
@@ -56,7 +93,7 @@ export default function EmployeeManager() {
             {
               department.map( (d)=>{
                 return (
-                    <option> {d.departmentName}</option>
+                    <option key={d.departmentId} value={d.departmentId}> {d.departmentName}</option>
                 )
               })
             }
@@ -84,38 +121,22 @@ export default function EmployeeManager() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><img className="img-box" /> </td>
-              <td>김민준</td>
-              <td>개발팀</td>
-              <td>선임 개발자</td>
-              <td>
-                <span className="edit">수정</span>
-                <span className="delete">삭제</span>
-              </td>
-            </tr>
-
-            <tr>
-              <td><img className="img-box" /> </td>
-              <td>이서연</td>
-              <td>디자인팀</td>
-              <td>수석 디자이너</td>
-              <td>
-                <span className="edit">수정</span>
-                <span className="delete">삭제</span>
-              </td>
-            </tr>
-
-            <tr>
-              <td><img className="img-box" /> </td>
-              <td>박도윤</td>
-              <td>기획팀</td>
-              <td>팀장</td>
-              <td>
-                <span className="edit">수정</span>
-                <span className="delete">삭제</span>
-              </td>
-            </tr>
+          {
+            employeeList.map( (b) => {
+              return(
+                  <tr>
+                    <td><img className="img-box" src={`http://localhost:8080/upload/${b.employeeImg}`}/></td>
+                    <td>{b.employeeName}</td>
+                    <td>{b.departmentName}</td>
+                    <td>{b.position}</td>
+                    <td>
+                      <button onClick={()=>{update(b.employeeId)}} className="edit">수정</button>
+                      <button onClick={()=>{employDelete(b.employeeId)}} className="delete">삭제</button>
+                    </td>
+                  </tr>
+              )
+            })
+          }
           </tbody>
         </table>
       </div>

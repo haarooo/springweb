@@ -19,6 +19,7 @@ public class EmployeeDto {
     private Long departmentId;
     private String createDate;
     private String updateDate;
+    private String departmentName;
 
     private MultipartFile multipartFile;
 

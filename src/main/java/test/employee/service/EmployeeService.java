@@ -32,7 +32,7 @@ public class EmployeeService {
 
         String fileName = fileService.upload(employeeDto.getMultipartFile());
         if(fileName != null){employeeEntity.setEmployeeImg(fileName);}
-
+        else{employeeEntity.setEmployeeImg("2aeaab56-39c7-414c-9dad-60f630eefe4f_free-icon-profile-18993099.png");}
         EmployeeEntity saved = employeeRepository.save(employeeEntity);
         if (saved.getEmployeeId() >= 0) {return saved.toDto();}
         return null;
@@ -50,14 +50,7 @@ public class EmployeeService {
             EmployeeEntity update = optional.get();
             update.setEmployeeId(employeeDto.getEmployeeId());
             update.setEmployeeName(employeeDto.getEmployeeName());
-            update.setEmployeeImg(employeeDto.getEmployeeImg());
             update.setPosition(employeeDto.getPosition());
-            Optional<DepartmentEntity> depart = departmentRepository.findById(employeeDto.getDepartmentId());
-            update.setDepartment(depart.get());
-
-            String fileName = fileService.upload(employeeDto.getMultipartFile());
-            if(fileName != null){update.setEmployeeImg(fileName);}
-
             return employeeRepository.save(update).toDto();
         }
         return null;
