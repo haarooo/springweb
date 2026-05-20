@@ -1,0 +1,1 @@
+SELECT * FROM pythonml.중고차매매데이터;
