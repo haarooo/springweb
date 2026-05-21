@@ -1,41 +1,27 @@
-package pythonML.practice7.entity;
+package pythonML.practice9.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pythonML.practice7.dto.FashionDto;
+import pythonML.practice9.entity.FashionEntity;
 
-@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
-@Table(name = "fashion")
-public class FashionEntity {
+public class FashionDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "age")
     private Integer age;
-
-    @Column(name = "gender")
     private Integer gender;
-
-    @Column(name = "inflow")
     private Integer inflow;
-
-    @Column(name = "style" , columnDefinition = " integer default 0")
     private Integer style;
-
-    @Column(name = "category")
     private Integer category;
 
-    public FashionDto toDto(){
-        return FashionDto.builder()
+
+    public FashionEntity toEntity(){
+        return FashionEntity.builder()
                 .age(age)
                 .gender(gender)
                 .inflow(inflow)
@@ -43,5 +29,4 @@ public class FashionEntity {
                 .category(category)
                 .build();
     }
-
 }

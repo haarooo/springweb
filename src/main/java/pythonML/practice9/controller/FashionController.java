@@ -1,4 +1,4 @@
-package pythonML.practice7.controller;
+package pythonML.practice9.controller;
 
 
 import lombok.RequiredArgsConstructor;
@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pythonML.practice6.dto.CarDto;
-import pythonML.practice7.dto.FashionDto;
-import pythonML.practice7.repository.FashionRepository;
-import pythonML.practice7.service.FashionService;
+import pythonML.practice9.dto.FashionDto;
+import pythonML.practice9.service.FashionService;
 
 @RestController
 @RequestMapping("/api/fashion")

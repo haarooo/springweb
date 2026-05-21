@@ -1,13 +1,13 @@
-package pythonML.practice7.service;
+package pythonML.practice9.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
-import pythonML.practice7.dto.FashionDto;
-import pythonML.practice7.entity.FashionEntity;
-import pythonML.practice7.repository.FashionRepository;
+import pythonML.practice9.dto.FashionDto;
+import pythonML.practice9.entity.FashionEntity;
+import pythonML.practice9.repository.FashionRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
